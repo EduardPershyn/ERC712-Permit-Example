@@ -10,10 +10,8 @@ import { Link } from "react-router-dom";
  * @returns react component
  **/
 function Home({ readContracts, writeContracts, signer, provider, network }) {
-  // @author: Jesper; AN EXAMPLE OF HOW TO IMPLEMENT EIP712
-  
   // put the contract address here (needs to be updated when the contract changes)
-  const contractAddr = "0xa513e6e4b8f2a923d98304ec87f64353c4d5c853";
+  const contractAddr = "0x2d696d02492248b5F76Ccc4249e96661f886E784";
 
   const getAllowance = async () => {
     const myAccount = await signer.getAddress();
@@ -51,7 +49,7 @@ function Home({ readContracts, writeContracts, signer, provider, network }) {
       },
       primaryType: "Permit",
       domain: {
-        name: "Jesper",
+        name: "ERC20PermitToken",
         version: "1",
         chainId: network.chainId,
         verifyingContract: contractAddr

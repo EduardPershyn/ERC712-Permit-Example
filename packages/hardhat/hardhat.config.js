@@ -12,6 +12,9 @@ require("hardhat-gas-reporter");
 require("@nomiclabs/hardhat-ethers");
 require("@nomiclabs/hardhat-etherscan");
 
+const accountKey = fs.readFileSync(".secret").toString("utf-8");
+const infuraKey = fs.readFileSync(".infura").toString("utf-8");
+
 const { isAddress, getAddress, formatUnits, parseUnits } = utils;
 
 /*
@@ -26,7 +29,7 @@ const { isAddress, getAddress, formatUnits, parseUnits } = utils;
 //
 // Select the network you want to deploy to here:
 //
-const defaultNetwork = "localhost";
+const defaultNetwork = "goerli";
 
 const mainnetGwei = 21;
 
@@ -102,11 +105,9 @@ module.exports = {
       },
     },
     goerli: {
-      url: "https://goerli.infura.io/v3/460f40a260564ac4a4f4b3fffb032dad", // <---- YOUR INFURA ID! (or it won't work)
+      url: "https://goerli.infura.io/v3/"+infuraKey, // <---- YOUR INFURA ID! (or it won't work)
       //      url: "https://speedy-nodes-nyc.moralis.io/XXXXXXXXXXXXXXXXXXXXXXXXX/eth/goerli", // <---- YOUR MORALIS ID! (not limited to infura)
-      accounts: {
-        mnemonic: mnemonic(),
-      },
+      accounts: [accountKey],
     },
     xdai: {
       url: "https://rpc.xdaichain.com/",
@@ -230,31 +231,32 @@ module.exports = {
       },
     },
   },
-  solidity: {
-    compilers: [
-      {
-        version: "0.8.4",
-        settings: {
-          optimizer: {
-            enabled: true,
-            runs: 200,
-          },
-        },
-      },
-      {
-        version: "0.6.7",
-        settings: {
-          optimizer: {
-            enabled: true,
-            runs: 200,
-          },
-        },
-      },
-    ],
-  },
-  ovm: {
-    solcVersion: "0.7.6",
-  },
+    solidity: "0.8.19",
+//  solidity: {
+//    compilers: [
+//      {
+//        version: "0.8.4",
+//        settings: {
+//          optimizer: {
+//            enabled: true,
+//            runs: 200,
+//          },
+//        },
+//      },
+//      {
+//        version: "0.6.7",
+//        settings: {
+//          optimizer: {
+//            enabled: true,
+//            runs: 200,
+//          },
+//        },
+//      },
+//    ],
+//  },
+//  ovm: {
+//    solcVersion: "0.7.6",
+//  },
   namedAccounts: {
     deployer: {
       default: 0, // here this will by default take the first account as deployer
